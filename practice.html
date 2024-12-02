@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Page Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-link {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #575757;
+            color: white;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .slider {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: calc(100% * 5); /* Adjust based on the number of images */
+        }
+
+        .slides img {
+            width: 100%;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About Us</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    
+    <div id="home" class="content">
+        <h1>Welcome to Home Page</h1>
+        <div class="slider">
+            <div class="slides">
+                <img src="Cat.jpg.jpg" alt="Image 1">
+                <img src="CARTOON.jpg" alt="Image 2">
+                <img src="image3.jpg" alt="Image 3">
+                <img src="image4.jpg" alt="Image 4">
+                <img src="image5.jpg" alt="Image 5">
+            </div>
+        </div>
+    </div>
+    
+    <div id="about" class="content hidden">
+        <h1>About Us</h1>
+        <p>This is the About Us section.</p>
+    </div>
+    
+    <div id="services" class="content hidden">
+        <h1>Our Services</h1>
+        <p>This is the Services section.</p>
+    </div>
+    
+    <div id="contact" class="content hidden">
+        <h1>Contact Us</h1>
+        <p>This is the Contact section.</p>
+    </div>
+
+    <script>
+        // Slider functionality
+        let currentIndex = 0;
+        const slides = document.querySelector(".slides");
+        const totalImages = slides.children.length;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalImages;
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }, 3000);
+
+        // Navigation functionality
+        const links = document.querySelectorAll(".nav-link");
+        const contents = document.querySelectorAll(".content");
+
+        links.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute("href").substring(1);
+                
+                // Hide all content and remove active class
+                contents.forEach(content => content.classList.add("hidden"));
+                links.forEach(link => link.classList.remove("active"));
+                
+                // Show the selected content and mark link as active
+                document.getElementById(targetId).classList.remove("hidden");
+                link.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>
